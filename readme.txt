@@ -1,5 +1,5 @@
 === WP-clone-template ===
-Tags: template,templates,clone templates,themes,copy themes
+Tags: template,templates,clone templates,themes,copy themes,export themes, export, exporter
 Requires at least: 3.0
 Tested up to: 3.3
 Stable tag: 1.5
@@ -19,3 +19,8 @@ After installing the plugin, you need to go to the "Export" subsection in the "A
 * Permisson problems fixed.
 * Warnings added.
 * Directory structure changed.
+
+== Screenshots ==
+1. "Export" option in the apparience menu.
+2. Wp-clone-template running.
+3. Just another screenshot.
