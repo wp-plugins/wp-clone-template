@@ -1,8 +1,8 @@
 === WP-clone-template ===
 Tags: template,templates,clone templates,themes,copy themes
 Requires at least: 3.0
-Tested up to: 3.1.1
-Stable tag: 1.0
+Tested up to: 3.3
+Stable tag: 1.5
 Author: Sergio Milardovich
 
 == Installation ==
@@ -13,3 +13,9 @@ With this plugin you'll be able to export your themes in a .zip file and then in
 
 == Usage ==
 After installing the plugin, you need to go to the "Export" subsection in the "Appearence" menu. Just select the theme you want and then click in the "Export" button. You will get a .zip file to download. Once you have the .zip file in your computer, you can install the theme going to Appearence/Themes/Install Themes/Upload in your wordpress administration pannel, and then select your .zip file and click on "Install now".
+
+== Changelog ==
+[29-11-2011] 1.5
+* Permisson problems fixed.
+* Warnings added.
+* Directory structure changed.

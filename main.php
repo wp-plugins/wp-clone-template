@@ -2,7 +2,7 @@
    /*
       Plugin Name: WP-clone-template
       Description: With this plugin you'll be able to export your templates in a .zip file and then install with that .zip file the same theme in other servers.
-      Version: 1.0
+      Version: 1.5
       Author: Sergio Milardovich
       Author URI: http://milardovich.com.ar
    */
@@ -19,6 +19,7 @@
 		}
 	}
 	function install_wpct(){
+		@mkdir(WPCT_PATH.'templates', 0755);
 		return true;
 	}
 	function uninstall_wpct(){
@@ -62,15 +63,19 @@
 		return $data;
 }
 
+	function wpct_show_warn($warn){
+		echo '<div class="error"><p>'.$warn.'</p></div>';
+	}
 	function wpct_export_template($template){
 		require_once WPCT_PATH.'lib/pclzip.lib.php';
-		if(!is_dir('../templates')){
-			mkdir('../templates', 0777);
+		if(!is_dir(WPCT_PATH.'templates')){
+			@mkdir(WPCT_PATH.'templates', 0755) or wpct_show_warn("I'm not able to create the directory '".WPCT_PATH."templates', please, check your permissons or create it manually.");
 		}
-		if(file_exists('../templates/'.$template.'.zip')){
-			unlink('../templates/'.$template.'.zip');
+		@chmod(WPCT_PATH."templates", 0755);
+		if(file_exists(WPCT_PATH.'templates/'.$template.'.zip')){
+			@unlink(WPCT_PATH.'templates/'.$template.'.zip') or wpct_show_warn("I'm not able to delete the file $template.zip in the directory 'templates', please, check your permissons or delete it manually.");
 		}
-		$export = new PclZip('../templates/'.$template.'.zip');
+		$export = new PclZip(WPCT_PATH.'templates/'.$template.'.zip');
 		$template_root = substr($_SERVER['SCRIPT_FILENAME'],0,-19).'wp-content/themes/'.$template.'/';
 		$files = rscandir($template_root);
 		foreach($files as $file){
@@ -83,7 +88,7 @@
 		if ($make == 0) {
 		    die("Error : ".$export->errorInfo(true));
 		}
-		echo'<div id="message" class="updated"><p>Theme exported. <a href="../templates/'.$template.'.zip">Download theme</a></p></div>';
+		echo'<div id="message" class="updated"><p>Theme exported. <a href="'. get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__)).'/templates/'.$template.'.zip">Download theme</a></p></div>';
 	}
 
 
