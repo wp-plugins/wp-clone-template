@@ -1,23 +1,27 @@
 <?php
    /*
       Plugin Name: WP-clone-template
-      Description: With this plugin you'll be able to export your templates in a .zip file and then install with that .zip file the same theme in other servers.
-      Version: 1.5
+      Description: A simple plugin to export templates in a .zip file and then install them from the same package in other servers.
+      Version: 2.0
       Author: Sergio Milardovich
       Author URI: http://milardovich.com.ar
    */
 
-	// Defines a lo milardo(klemode = true)
 	define("WPCT_PATH", dirname(__FILE__).'/', true);
-
 	add_action('activate_wp-clone-template/main.php','install_wpct');
 	add_action('deactivate_wp-clone-template/main.php', 'uninstall_wpct');
 
-	if (!function_exists('plugin_url')){
-		function plugin_url(){
+	if (!function_exists('clone_plugin_url')){
+		function clone_plugin_url(){
 			return get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));	
 		}
 	}
+
+
+    if (!isset($_SESSION['wpct_buffer'])) {
+        $_SESSION['wpct_buffer'] = false;
+    }
+
 	function install_wpct(){
 		@mkdir(WPCT_PATH.'templates', 0755);
 		return true;
@@ -88,8 +92,31 @@
 		if ($make == 0) {
 		    die("Error : ".$export->errorInfo(true));
 		}
-		echo'<div id="message" class="updated"><p>Theme exported. <a href="'. get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__)).'/templates/'.$template.'.zip">Download theme</a></p></div>';
+
+        $_SESSION['wpct_buffer'] = true;
+        wp_redirect(get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__)).'/templates/'.$template.'.zip', 301); exit;
 	}
 
+    add_action('init', 'clean_output_buffer');
+    function clean_output_buffer() {
+        ob_start();
+    }
+
+    add_action('init', 'check_session_buffer');
+    function check_session_buffer(){
+        if($_SESSION['wpct_buffer'] == true){
+            $files = glob(WPCT_PATH.'templates/*'); // get all file names
+            foreach($files as $file){ // iterate files
+                if(is_file($file))
+                    unlink($file); // delete file
+            }
+            $_SESSION['wpct_buffer'] = false;
+        }
+    }
+
+    add_action('init', 'init_session', 1);
+    function init_session(){
+        session_start();
+    }
 
 ?>

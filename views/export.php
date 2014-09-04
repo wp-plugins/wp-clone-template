@@ -1,4 +1,4 @@
-<div id="icon-themes" class="icon32"><br /></div> <h2>Export themes</h2> 
+<h2>Export themes</h2>
 <?php
 	if(isset($_POST['Templates'])){
 		wpct_export_template($_POST['Templates']);
