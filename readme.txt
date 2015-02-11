@@ -3,7 +3,7 @@ Tags: template,templates,clone templates,themes,copy themes,export themes, expor
 Requires at least: 3.0
 Tested up to: 4.0
 Stable tag: 2.0
-Author: Sergio Milardovich
+Author: milardovich
 Contributors: milardovich
 
 == Installation ==
