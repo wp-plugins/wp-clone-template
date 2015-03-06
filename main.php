@@ -4,7 +4,7 @@
       Description: A simple plugin to export templates in a .zip file and then install them from the same package in other servers.
       Version: 2.0
       Author: Sergio Milardovich
-      Author URI: http://milardovich.com.ar
+      Author URI: http://milardovich.com.ar/
    */
 
 	define("WPCT_PATH", dirname(__FILE__).'/', true);
