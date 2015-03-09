@@ -4,7 +4,7 @@ Tags: template,templates,clone templates,themes,copy themes,export themes, expor
 Requires at least: 3.0
 Tested up to: 4.0
 Stable tag: 2.0
-Author: milardovich
+Author: Sergio Milardovich
 
 == Installation ==
 Just paste this folder to the wp-content/plugins folder in your server and then activate it from the backend. You will found a new item in the "Appearence" menu called "Export".
